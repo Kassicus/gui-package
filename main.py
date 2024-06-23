@@ -13,6 +13,8 @@ class Window():
         self.clock = pygame.time.Clock()
         self.events = pygame.event.get()
 
+        self.ab_label = spit.Label(20, 300, "centered:", WHITE)
+
         self.text_box = spit.TextField(100, 100, 100, 30, "test", WHITE, GREEN, RED, draw_type="line")
         self.another_box = spit.TextField(100, 300, 250, 18, "another", WHITE, GREEN, RED, alignment="centered")
 
@@ -35,6 +37,8 @@ class Window():
 
     def draw(self):
         self.screen.fill(BLACK)
+
+        self.ab_label.draw()
 
         self.text_box.draw()
         self.another_box.draw()

@@ -1,6 +1,43 @@
 import pygame
 import pickle
 
+class Label():
+    def __init__(self,
+                 x: int,
+                 y: int,
+                 value: str,
+                 fg_color: pygame.Color,
+                 font_size: int = 16,
+                 font_string: str = "data/fonts/default_fira.ttf",
+                 ):
+        
+        """ Draws static text to the screen
+        
+        Arguments:
+        x: int - the horizontal position of the text field
+        y: int - the vertical position of the text field
+        value: str - the text that will be displayed in the label
+        fg_color: pygame.Color - the color of the text
+        font_size: int=16 - the size of the font on screen
+        font_string: str="data/fonts/default_fira.ttf" - the path of the font used for the field, uses the FiraCode Mono Nerd Font by default
+        """
+
+        self.pos = pygame.math.Vector2(x, y)
+
+        self.fg_color = fg_color
+
+        self.font_size = font_size
+        self.font_string = font_string
+
+        self.text = value
+        self.font = pygame.font.Font(self.font_string, self.font_size)
+        self.rendered_text = self.font.render(self.text, True, (self.fg_color))
+
+        self.display_surface = pygame.display.get_surface()
+
+    def draw(self):
+        self.display_surface.blit(self.rendered_text, self.pos)
+
 class TextField():
     def __init__(self,
                  x: int,
@@ -15,7 +52,8 @@ class TextField():
                  font_size = 16,
                  alignment = "left",
                  path_prefix = "data/textfields/",
-                 font_string = "data/fonts/default_fira.ttf"
+                 font_string = "data/fonts/default_fira.ttf",
+                 value = ""
                  ):
         
         """ Simple text field (overflow allowed)
@@ -34,6 +72,7 @@ class TextField():
         alignment: str="left" - "left" "center" the horizontal alignment of the text in the field
         path_prefix: str="data/textfields/" - the path that the field content will be saved to
         font_string: str="data/fonts/default_fira.ttf" - the path of the font used for the field, uses the FiraCode Mono Nerd Font by default 
+        value: str="" - the value the field will load with by default
         """
         
         self.pos = pygame.math.Vector2(x, y)
@@ -53,7 +92,7 @@ class TextField():
 
         self.focused = False
 
-        self.text = ""
+        self.text = value
         self.font = pygame.font.Font(self.font_string, self.font_size)
         self.rendered_text = self.font.render(self.text, True, (self.fg_color))
 
